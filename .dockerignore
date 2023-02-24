@@ -1,0 +1,11 @@
+.vscode
+.github
+node_modules
+.gitignore
+.node-version
+.prettierrc
+.replit
+config.json
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+Procfile
