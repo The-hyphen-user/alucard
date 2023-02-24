@@ -8,7 +8,7 @@ const {
     Client,
     GatewayIntentBits,
 } = require('discord.js')
-const { ALUCARD_BOT_TOKEN, TESTING_SERVER_GUILD_ID } = process.env
+const { BOT_TOKEN, GUILD_ID } = process.env
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -29,7 +29,7 @@ const chatgptCommand = new SlashCommandBuilder()
             .setRequired(true))
 
 client.on('ready', async () => {
-    const guildId = TESTING_SERVER_GUILD_ID
+    const guildId = GUILD_ID
     const command = await client.application.commands.create(chatgptCommand, guildId);
     console.log(`${client.user.tag} Logged In`)
 });
@@ -68,5 +68,5 @@ client.on('interactionCreate', async (interaction) => {
     }
 })
 
-client.login(ALUCARD_BOT_TOKEN)
+client.login(BOT_TOKEN)
 console.log('ChatGPT is running')
