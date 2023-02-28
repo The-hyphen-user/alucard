@@ -41,7 +41,7 @@ client.on('interactionCreate', async (interaction) => {
                 const user = interaction.member.user;
                 const nickname = interaction.member.nickname;
                 const username = nickname ? nickname : user.username;
-                interaction.reply(`generating response... \n Beep Boop Fucking your mom!`);
+                interaction.reply(`generating response... \n Beep Boop`);
 
                 const message = interaction.options.getString('message');
 
@@ -54,7 +54,7 @@ client.on('interactionCreate', async (interaction) => {
                     frequency_penalty: 0.5,
                     presence_penalty: 0,
                 });
-                await interaction.editReply(`Beep Boop Fucking your mom complete:\n${username}: ${message}\nChatGPT: ${response.data.choices[0].text}`);
+                await interaction.editReply(`Beep Boop calculations complete:\n${username}: ${message}\nChatGPT: ${response.data.choices[0].text}`);
 
             }
         }
