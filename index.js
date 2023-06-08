@@ -3,6 +3,9 @@ const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY
 })
+
+const cron = require('node-cron');
+const epigGamesChannelId = process.env.epigGamesChannelId;
 const openai = new OpenAIApi(configuration)
 const {
     Client,
@@ -70,3 +73,28 @@ client.on('interactionCreate', async (interaction) => {
 
 client.login(BOT_TOKEN)
 console.log('ChatGPT is running')
+
+const messageDiscordNewGames = async () => {
+    const data = await fetch('https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions',
+    {
+    params: { country: 'US', locale: 'en-US' },
+    headers: { 'Access-Control-Allow-Origin': '*' }
+    })
+    const json = await data.json()
+    json.data.Catalog.searchStore.elements.forEach(e => {
+        if (e.title === 'Mystery Game'){
+        } else {
+            const title = e.title
+            const description = e.description
+            const picture = e.keyImages[0].url
+            const channel = client.channels.cache.get(epigGamesChannelId)
+            // channel.send('new game on epic games: \n',title, '\n', description, '\n', picture)
+            channel.send(`new game on epic games:\n${title}\n${description}\n${picture}`);
+
+        }
+    })
+}
+
+cron.schedule('5 15 * * 5', () => {
+    messageDiscordNewGames()
+  });

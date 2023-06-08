@@ -1,13 +1,10 @@
 # discord bot that responds with openai's chatgpt responses
 
 
-##
-thing you will need to make this work
-
-
-a discord bot (free and easy to make one)<br>
+## thing you will need to make this work <br>
+a discord bot (free)<br>
 sign up for an open ai api key cost very very little per use<br>
-a place to host the code<br>
+a place to host the code that has docker installed<br>
 ## instructions to use:
 
 **Create a discord bot**
