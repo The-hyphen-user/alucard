@@ -22,3 +22,7 @@ yarn-error.log*
 # production
 /build
 node_modules
+
+
+/*.log
+*.log
