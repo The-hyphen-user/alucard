@@ -118,12 +118,12 @@ client.on('interactionCreate', async (interaction) => {
                 const response = await openai.createImage({
                     prompt: prompt,
                     n: 1,
-                    size: "512x512",
+                    size: "1024x1024",
                 })
-                console.log(response)
-                console.log(response.data)
-                console.log(response.data.data[0])
-                console.log(response.data.data[0].url)
+                // console.log(response)
+                // console.log(response.data)
+                // console.log(response.data.data[0])
+                // console.log(response.data.data[0].url)
                 logger.info(`Image Response:${new Date()}, ${response.data.data[0].url}`)
                 const image_url = response.data.data[0].url;
                 await interaction.editReply(`Beep Boop calculations complete:\n${username}: ${prompt}\nImage: ${image_url}`);
