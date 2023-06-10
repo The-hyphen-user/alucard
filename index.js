@@ -12,9 +12,11 @@ const epigGamesChannelId = process.env.EPIC_GAMES_CHANNEL_ID;
 const winston = require('winston');
 
 
+
 const {
     Client,
     GatewayIntentBits,
+    MessageAttachment,
 } = require('discord.js')
 const { ALUCARD_BOT_TOKEN, GUILD_ID } = process.env
 const client = new Client({
@@ -126,7 +128,9 @@ client.on('interactionCreate', async (interaction) => {
                 // console.log(response.data.data[0].url)
                 logger.info(`Image Response:${new Date()}, ${response.data.data[0].url}`)
                 const image_url = response.data.data[0].url;
+                const attachment = new MessageAttachment(image_url);
                 await interaction.editReply(`Beep Boop calculations complete:\n${username}: ${prompt}\nImage: ${image_url}`);
+                await interaction.reply({ files: [attachment] });
             }
 
         }
@@ -150,27 +154,39 @@ const messageDiscordNewGames = async () => {
             headers: { 'Access-Control-Allow-Origin': '*' }
         })
     const json = response.data;
-    // console.log(json)
-    logger.info(`Response: ${json.data.Catalog.searchStore.elements}`)
+    // console.log('json:', json.data.Catalog.searchStore.elements[0].title)
+    // logger.info(`Response: ${json.data.Catalog.searchStore.elements}`)
+    // console.log(`responce C-logged: ${json.data.Catalog.searchStore.elements[0].title}`)
     json.data.Catalog.searchStore.elements.forEach(e => {
         if (e.title === 'Mystery Game') {
         } else {
-            const title = e.title
-            //            const description = e.description
-            //            const picture = e.keyImages[0].url
-            const channel = client.channels.cache.get(epigGamesChannelId)
-            //            channel.send('new game on epic games: \n',title, '\n', description, '\n', picture)
-            //            channel.send(`new game on epic games:\n${title}\n${description}\n${picture}`);
-            const ref = title.replace(/\s/g, '-').toLowerCase()
-            const endDate = e.promotions.promotionalOffers[0].promotionalOffers[0].endDate
-            const readableDatePST = new Date(endDate).toLocaleString("en-US", { timeZone: "America/Los_Angeles" })
-            channel.send(`https://www.epicgames.com/store/en-US/p/${ref}`)
-            channel.send(`Promotion ending ${readableDatePST}`)
+            const promotionalOffers = e.promotions.promotionalOffers
+            const upcommingPromotionalOffers = e.promotions.upcomingPromotionalOffers
+            if (promotionalOffers.length === 0) {
+                console.log(e.title, ' not out yet')
+            } else {
+
+                const title = e.title
+                console.log('title1:', title)
+                // const effectiveDate = e.effectiveDate
+                const pageSlug = e.productSlug
+                console.log('title:', title)
+                //            const description = e.description
+                //            const picture = e.keyImages[0].url
+                const channel = client.channels.cache.get(epigGamesChannelId)
+                //            channel.send('new game on epic games: \n',title, '\n', description, '\n', picture)
+                //            channel.send(`new game on epic games:\n${title}\n${description}\n${picture}`);
+                // const ref = title.replace(/\s/g, '-').toLowerCase()
+                const endDate = e.promotions.promotionalOffers[0].promotionalOffers[0].endDate
+                const readableDatePST = new Date(endDate).toLocaleString("en-US", { timeZone: "America/Los_Angeles" })
+                channel.send(`https://www.epicgames.com/store/en-US/p/${pageSlug}`)
+                channel.send(`Promotion ending ${readableDatePST}`)
+            }
         }
     })
 }
 
-cron.schedule('5 15 * * 5', () => {//friday at :05am PST
-    //cron.schedule('*/2 * * * *', () => { //every 2 minutes
+// cron.schedule('5 15 * * 5', () => {//friday at :05am PST
+cron.schedule('*/1 * * * *', () => { //every 2 minutes
     messageDiscordNewGames()
 });
