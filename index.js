@@ -41,7 +41,7 @@ client.on('interactionCreate', async (interaction) => {
                 const user = interaction.member.user;
                 const nickname = interaction.member.nickname;
                 const username = nickname ? nickname : user.username;
-                interaction.reply(`generating response... \n Beep Boop Fucking your mom!`);
+                interaction.reply(`generating response... \n Beep Boop Calculating!`);
                 const message = interaction.options.getString('message');
 
                 logger.info(`Chat Message:${new Date()}, ${username}, ${message}, `)
@@ -56,7 +56,7 @@ client.on('interactionCreate', async (interaction) => {
                 });
                 logger.info(`Chat Response:${new Date()}, ${response.data.choices[0].text}`)
                 console.log('r: ', response.data.choices[0].text)
-                await interaction.editReply(`Beep Boop Fucking your mom complete:\n${username}: ${message}\nChatGPT: ${response.data.choices[0].text}`);
+                await interaction.editReply(`Beep Boop complete:\n${username}: ${message}\nChatGPT: ${response.data.choices[0].text}`);
 
             }
 
@@ -85,7 +85,7 @@ client.on('interactionCreate', async (interaction) => {
     } catch (error) {
         logger.error('Error:', error)
         try {
-            interaction.editReply(`Beep Boop Fucking Error: ${error}`)
+            interaction.editReply(`Beep Boop Error: ${error}`)
         } catch (err) {
             logger.error(`${new Date()}, Error while editing reply: ${error}`)
         }
