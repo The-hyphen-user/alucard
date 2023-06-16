@@ -31,9 +31,6 @@ $docker run <container-name><br>
 container name can be whatever you want it to be
 once set up you will have access to the /chatGPT and /image commands in any channel
 
-Example of a free game promotion notification  
-![payday](https://github.com/The-hyphen-user/alucard/assets/61300812/0baa6086-3e47-4712-9d07-9eaa590abb81)
-
 Example of chat gpt response  
 Initial request someone submits  
 ![chatGPT initial](https://github.com/The-hyphen-user/alucard/assets/61300812/f06d4aea-2eac-4ee6-9a4a-73d9b6798bca)  
@@ -44,4 +41,8 @@ Full response a few seconds later that replaces the imediate response
 
   
 Example of the dall-e image creation from OpenAI  
-![plant image dalle](https://github.com/The-hyphen-user/alucard/assets/61300812/24c58c3b-36f5-43aa-b0a9-df440c461e87)
+![plant image dalle](https://github.com/The-hyphen-user/alucard/assets/61300812/24c58c3b-36f5-43aa-b0a9-df440c461e87)  
+
+
+Example of a free game promotion notification  
+![payday](https://github.com/The-hyphen-user/alucard/assets/61300812/0baa6086-3e47-4712-9d07-9eaa590abb81)
